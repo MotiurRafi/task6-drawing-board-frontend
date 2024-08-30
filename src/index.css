@@ -1,13 +1,549 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --text: #07060b;
+  --background: #f5f3f9;
+  --primary: #7b5dae;
+  --secondary: #ce9db4;
+  --accent: #c3878a;
+  --custom-color-1: #FFA434;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+.infinite-boards{
+  height: 95%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9d7ed4;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: url(../public/main_background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.ul-lsn {
+  list-style: none;
+}
+
+.DrawingBoard {
+  display: flex;
+  flex-direction: column-reverse;
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+  margin: 5px 5px 5px 0;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.DrawingBoard #drawing-options {
+  display: flex;
+  height: 80px;
+  padding: 5px;
+  justify-content: space-between;
+}
+
+
+.canvas-container {
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, .37);
+}
+
+.stroke-box,
+.fill-box,
+.background-box {
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.stroke-box .input-box,
+.fill-box .input-box,
+.background-box .input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stroke-box input,
+.fill-box input,
+.background-box input {
+  border: none;
+  background: transparent;
+  height: 20px;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.stroke-box button:hover,
+.fill-box button:hover,
+.background-box button:hover {
+  opacity: 50%;
+}
+
+.stroke-box button,
+.fill-box button,
+.background-box button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  height: 20px;
+  width: 20px;
+  transition: .2s ease;
+}
+
+.stroke-box button img,
+.fill-box button img,
+.background-box button img {
+  height: 100%;
+  width: 100%;
+}
+
+canvas {
+  border-radius: 10px;
+}
+
+.brush-type-box,
+.shapes-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  padding: 0 10px;
+}
+
+.brush-type-box .brush-type,
+.shapes-box .shape-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  height: 30px;
+}
+
+.brush-type-box .brush-type button,
+.shapes-box .shape-options button {
+  border: none;
+  background: white;
+  height: 20px;
+  width: 20px;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.brush-type button img {
+  height: 100%;
+  width: 100%;
+}
+
+.size-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  padding: 0 5px;
+  width: 70px;
+}
+
+.size-box label {
+  margin-top: 9px;
+}
+
+.size-box input {
+  margin-top: 4px;
+  height: 20px;
+  width: 40px;
+  font-family: monospace;
+  outline: none;
+  border: none;
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.font-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.font-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.font-options button {
+  border: none;
+  background: white;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.font-options button img {
+  height: 100%;
+  width: 100%;
+}
+
+.font-options select {
+  height: 20px;
+  width: 60px;
+  outline: none;
+  border: none;
+}
+
+#font-size {
+  height: 20px;
+  width: 40px;
+  outline: none;
+  border: none;
+}
+
+.canvas-container {
+  background-color: white;
+}
+
+#font-color {
+  border: none;
+  background: transparent;
+  height: 20px;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.selected-clear,
+.select,
+.save-progress {
+  width: 70px;
+}
+
+.selected-clear img {
+  height: 30px;
+}
+
+.select img,
+.save-progress img {
+  height: 40px;
+}
+
+.Board img {
+  width: calc(100% - 6px);
+  border-radius: 4px;
+}
+
+button,
+input,
+select {
+  cursor: pointer;
+}
+
+button:hover,
+input:hover,
+select:hover {
+  opacity: 80%;
+}
+
+.canvas-clear {
+  font-size: 25px;
+  color: rgb(187, 38, 38);
+  width: 70px;
+}
+
+.export {
+  font-size: 25px;
+  color: rgb(26, 160, 183);
+  width: 70px;
+}
+
+.BoardList li {
+  transition: .2s ease;
+  cursor: pointer;
+}
+
+.selected {
+  transform: scale(1.02);
+  opacity: 90%;
+
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, .37);
+}
+
+.br-1 {
+  border-radius: 10px;
+}
+
+.br-2 {
+  border-radius: 20px;
+}
+
+.br-3 {
+  border-radius: 30px;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.m--1 {
+  margin: 5px;
+}
+
+.m-1 {
+  margin: 10px;
+}
+
+.mt-1 {
+  margin-top: 10px;
+}
+
+.m-2 {
+  margin: 20px;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.ptb-1 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.w-p-15 {
+  width: 15%;
+}
+
+.h-full {
+  height: -webkit-fill-available;
+}
+
+.h-p-100 {
+  height: 100%;
+}
+
+.BoardList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 86%;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 100vh;
+}
+
+.BoardList ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+.load-more-button{
+  background-color: var(--primary);
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, .18);
+    color: #fff;
+    font-family: monospace;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.Board {
+  margin: 3px;
+  border-radius: 5px;
+
+}
+
+.Board h4 {
+  margin: 2px;
+  text-align: left;
+  color: var(--text);
+  text-transform: capitalize;
+  font-family: monospace;
+}
+
+.Board p {
+  text-align: left;
+  margin: 0;
+}
+
+.emptyThumbnail {
+  height: 100px;
+  border-radius: 3px 3px 5px 5px;
+  background-color: #d4d4d4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CreateBoard {
+  margin: 5px 3px 0 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 14%;
+  padding: 0 3px;
+}
+
+.CreateBoard input {
+  border-radius: 5px;
+  padding: 0 0 0 5px;
+  color: #fff;
+  font-family: monospace;
+  outline: none;
+}
+
+.CreateBoard button {
+  background-color: var(--primary);
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: #fff;
+  font-family: monospace;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.SearchBoard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.SearchBoard input {
+  border-radius: 5px;
+  padding: 0 0 0 5px;
+  color: #fff;
+  font-family: monospace;
+  outline: none;
+  margin: 0 3px;
+}
+
+.placeholdermodify::placeholder {
+  color: rgb(65, 65, 65);
+  ;
+  opacity: 1;
+}
+
+.placeholdermodify:-ms-input-placeholder {
+  color: rgb(65, 65, 65);
+  ;
+  opacity: 1;
+}
+
+.placeholdermodify::-ms-input-placeholder {
+  color: rgb(65, 65, 65);
+  ;
+  opacity: 1;
+}
+
+.placeholdermodify::-webkit-input-placeholder {
+  color: rgb(65, 65, 65);
+  ;
+  opacity: 1;
+}
+
+.placeholdermodify::-moz-placeholder {
+  color: rgb(65, 65, 65);
+  opacity: 1;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.f-1 {
+  font-size: 10px;
+}
+
+.monospace {
+  font-family: monospace;
 }
