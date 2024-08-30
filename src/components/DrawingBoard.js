@@ -58,7 +58,7 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
       });
     }
 
-    socketRef.current.on('disconnect', handleProgressSaving);
+    socketRef.current.on('disconnect');
 
     if (drawingData) {
       const canvas = canvasInstanceRef.current;
