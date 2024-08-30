@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'http://localhost:5000/api/boards', 
+    baseURL: 'https://task6-drawing-board-backend.onrender.com/api/boards', 
     headers: {
         'Content-Type': 'application/json',
     }
 }) 
 const APIformdata = axios.create({
-    baseURL: 'http://localhost:5000/api/boards',
+    baseURL: 'https://task6-drawing-board-backend.onrender.com/api/boards',
     headers: {
         'Content-Type': 'multipart/form-data',
     }
