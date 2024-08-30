@@ -67,7 +67,6 @@ body {
 .DrawingBoard {
   display: flex;
   flex-direction: column-reverse;
-  height: 100vh;
   width: -webkit-fill-available;
   margin: 5px 5px 5px 0;
   gap: 5px;
@@ -82,7 +81,13 @@ body {
 }
 
 
+.canvas-container canvas{
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+}
 .canvas-container {
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
   border-radius: 10px;
   background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(10px);
