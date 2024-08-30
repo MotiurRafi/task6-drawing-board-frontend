@@ -82,12 +82,12 @@ body {
 
 
 .canvas-container canvas{
-  height: -webkit-fill-available;
-  width: -webkit-fill-available;
+  height: -webkit-fill-available !important;
+  width: -webkit-fill-available !important;
 }
 .canvas-container {
-  height: -webkit-fill-available;
-  width: -webkit-fill-available;
+  height: -webkit-fill-available !important;
+  width: -webkit-fill-available !important;
   border-radius: 10px;
   background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(10px);
