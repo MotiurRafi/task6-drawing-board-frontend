@@ -30,11 +30,9 @@ function App() {
     }
     localStorage.setItem('uName', userName);
     try {
-      await createBoard({ name: boardName, author: userName });
+      const response = await createBoard({ name: boardName, author: userName });
       setBoardName('');
-      setPage(1);
-      setBoards([]);
-      fetchBoards(1);
+      setBoards((prevBoards) => [response.data, ...prevBoards]);
     } catch (error) {
       console.error('Error creating board:', error);
     }
