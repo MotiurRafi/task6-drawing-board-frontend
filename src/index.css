@@ -325,7 +325,8 @@ select:hover {
 
 .selected {
   transform: scale(1.02);
-  opacity: 90%;
+  opacity: 98%;
+  border: 1px solid rgb(156, 177, 247)
 
 }
 
