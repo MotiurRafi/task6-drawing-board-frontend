@@ -21,6 +21,14 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      canvas.height = window.innerHeight - 73;
+      canvas.width = window.innerWidth - 183;
+    }
+  }, []);
+
+  useEffect(() => {
     if (!canvasInstanceRef.current) {
       const fabric = window.fabric;
       const canvas = new fabric.Canvas(canvasRef.current);
@@ -42,7 +50,7 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
           socketRef.current.emit('drawing', { boardId, canvasData });
         }
       };
-      
+
 
       canvas.on('mouse:up', emitDrawingData);
       canvas.on('object:modified', emitDrawingData);
@@ -58,7 +66,7 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
       });
     }
 
-    socketRef.current.on('disconnect', ()=>{
+    socketRef.current.on('disconnect', () => {
       console.log("disconnected")
     });
 
