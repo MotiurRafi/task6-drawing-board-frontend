@@ -30,7 +30,7 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
       canvas.freeDrawingBrush.color = strokeColor;
       canvasInstanceRef.current = canvas;
 
-      socketRef.current = io('http://localhost:5000');
+      socketRef.current = io('https://task6-drawing-board-backend.onrender.com');
 
       socketRef.current.emit('join-room', boardId);
 
