@@ -36,22 +36,22 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
 
       const emitDrawingData = async () => {
         if (!isReceiving.current) {
-          await handleProgressSaving()
-          const canvasData = JSON.stringify(canvas.toJSON());
-          console.log("emiting data", canvasData)
-          socketRef.current.emit('drawing', canvasData);
+          await handleProgressSaving();
+          const canvasData = canvas.toJSON();
+          console.log("emitting data", canvasData);
+          socketRef.current.emit('drawing', { boardId, canvasData });
         }
       };
+      
 
       canvas.on('mouse:up', emitDrawingData);
       canvas.on('object:modified', emitDrawingData);
       canvas.on('object:added', emitDrawingData);
 
       socketRef.current.on('drawing', ({ boardId, canvasData }) => {
-        const receivedcanvasData = JSON.parse(canvasData)
         isReceiving.current = true;
-        console.log("receieved data", receivedcanvasData)
-        canvas.loadFromJSON(receivedcanvasData, () => {
+        console.log("receieved data", canvasData)
+        canvas.loadFromJSON(canvasData, () => {
           canvas.renderAll();
           isReceiving.current = false;
         });
