@@ -58,7 +58,9 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
       });
     }
 
-    socketRef.current.on('disconnect');
+    socketRef.current.on('disconnect', ()=>{
+      console.log("disconnected")
+    });
 
     if (drawingData) {
       const canvas = canvasInstanceRef.current;
