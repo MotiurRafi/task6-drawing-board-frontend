@@ -361,7 +361,7 @@ export default function DrawingBoard({ setBoards, boardId, drawingData }) {
 
   return (
     <div className='DrawingBoard'>
-      <canvas ref={canvasRef} width={1410} height={685} id="c"></canvas>
+      <canvas ref={canvasRef} id="c"  style={{height: '-webkit-fill-available' }}></canvas>
       <div id="drawing-options" className='glass'>
         <div className='glass stroke-box'>
           <label htmlFor="stroke-color">Stroke</label>
